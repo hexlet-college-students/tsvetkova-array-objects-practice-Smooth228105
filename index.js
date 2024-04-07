@@ -7,19 +7,29 @@ const getHighrRuating = (data) => data.reduce((top, now) => (top[2] < (now[2] + 
 const getMaxIndia = (data) => data.reduce((mx, now) => Math.max(mx, now[6]), 0);
 
 const getMinIndia = (data) => data.reduce((mx, now) => Math.min(mx, now[6]), Infinity);
+
+const sortedData = (content) => {
+  const data = normalizeData(content);
+  const popularApps = data.slice(1).sort((a, b) => b[1] - a[1]).slice(0, 3).map(app => app[0]);
+  return popularApps;
+};
+
 // trim() -
 // split() -
 // map()- пвраметр внутри map, функция где двойной параметр
 // task 1
 const tableParsing = (content) => {
   const data = normalizeData(content);
-//   console.log(data);
+  // console.log(data);
 
   const topM = getHighrRuating(data);
   console.log(`General top messenger: ${topM[0]}, Owner: ${topM[1]}`);
 
   const [mx, mn] = [getMaxIndia(data), getMinIndia(data)];
   console.log(`Download count: Max count: ${mx}, Min count: ${mn}`);
+
+  const top3 = sortedData(content);
+  console.log(`Top-3 Australia: ${top3}`);
 };
 
 // task 2
